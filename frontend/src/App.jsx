@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import StatBar from './components/StatBar'
+import QuestionComponent from './components/Question'
 
 // import styles from './App.module.scss'
 
@@ -7,11 +9,16 @@ import { useEffect, useState } from 'react'
 function App() {
   const [data, setData] = useState([])
 
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [correctAnswers, setCorrectAnswers] = useState(0)
+  const [incorrectAnswers, setIncorrectAnswers] = useState(0)
+
   useEffect(() => {
     fetch('/api')
       .then((response) => response.json())
       .then((result) => {
         setData(result)
+        console.log(result)
       })
       .catch((error) => console.error('Error fetching data:', error))
   }, [])
@@ -19,6 +26,22 @@ function App() {
   return (
     <>
       <div>
+        <StatBar
+          currentQuestion={currentQuestionIndex + 1}
+          totalQuestions={data.length}
+          correct={correctAnswers}
+          incorrect={incorrectAnswers}
+        />
+        <QuestionComponent
+          question={data[currentQuestionIndex]?.question}
+          correctAnswer={data[currentQuestionIndex]?.correctanswer}
+          incorrectAnswers={[
+            data[currentQuestionIndex]?.incorrectanswer1,
+            data[currentQuestionIndex]?.incorrectanswer2,
+            data[currentQuestionIndex]?.incorrectanswer3,
+          ]}
+          onSubmit={() => {}}
+        />
         <h1>Trivia</h1>
         {data.map((item) => (
           <div key={item.id} style={{ marginBottom: '20px' }}>
