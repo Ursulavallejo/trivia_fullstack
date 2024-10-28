@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import StatBar from './components/StatBar'
 import QuestionComponent from './components/Question'
 import Reset from './components/Reset'
+import AddQuestionModal from './components/AddQuestionModal'
 
 // import styles from './App.module.scss'
 
@@ -16,6 +17,14 @@ function App() {
 
   const [waitingToAdvance, setWaitingToAdvance] = useState(false)
 
+  // To add new question >>
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleAddQuestionModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
   const onSubmit = (correct) => {
     if (correct) setCorrectAnswers(correctAnswers + 1)
     else setIncorrectAnswers(incorrectAnswers + 1)
@@ -28,14 +37,19 @@ function App() {
     setCurrentQuestionIndex(currentQuestionIndex + 1)
   }
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api')
+      const result = await response.json()
+      setData(result)
+      console.log(result)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
   useEffect(() => {
-    fetch('/api')
-      .then((response) => response.json())
-      .then((result) => {
-        setData(result)
-        console.log(result)
-      })
-      .catch((error) => console.error('Error fetching data:', error))
+    fetchData()
   }, [])
 
   const reset = () => {
@@ -57,6 +71,13 @@ function App() {
   return (
     <>
       <div>
+        <button onClick={toggleAddQuestionModal}>Add New Question</button>
+        {isModalOpen && (
+          <AddQuestionModal
+            onClose={toggleAddQuestionModal}
+            onAdd={fetchData} // Asegúrate de que fetchData esté definido
+          />
+        )}
         <StatBar
           currentQuestion={currentQuestionIndex + 1}
           totalQuestions={data.length}

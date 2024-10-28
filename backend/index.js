@@ -13,24 +13,30 @@ const client = new Client({
 
 client.connect()
 
-// app.get('/api', (_request, response) => {
-//   response.send({ hello: 'World' })
-// })
-
-// app.get('/api', async (_request, response) => {
-//   const { rows } = await client.query('SELECT * FROM questions')
-
-//   response.send(rows)
-// })
-
-// app.get('/name', (_request, response) => {
-//   response.send({ hello: 'Jon!!' })
-// })
+app.use(express.json())
 
 app.get('/api', async (request, response) => {
   const { rows } = await client.query('SELECT * FROM questions')
 
   response.send(rows)
+})
+
+app.post('/api/questions', async (request, response) => {
+  const { question, correctAnswer, incorrectAnswers } = request.body
+
+  try {
+    const query = `
+      INSERT INTO questions (question, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3)
+      VALUES ($1, $2, $3, $4, $5) RETURNING *
+    `
+    const values = [question, correctAnswer, ...incorrectAnswers]
+
+    const { rows } = await client.query(query, values)
+    response.status(201).send(rows[0])
+  } catch (error) {
+    console.error('Error inserting question:', error)
+    response.status(500).send('Internal Server Error')
+  }
 })
 
 const port = process.env.PORT || 3000
