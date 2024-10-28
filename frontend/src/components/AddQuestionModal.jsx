@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 function AddQuestionModal({ onClose, onAdd }) {
   const [question, setQuestion] = useState('')
@@ -70,6 +71,11 @@ function AddQuestionModal({ onClose, onAdd }) {
       <button onClick={onClose}>Cancel</button>
     </div>
   )
+}
+
+AddQuestionModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 }
 
 export default AddQuestionModal

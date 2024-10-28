@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 function DeleteQuestionModal({ questions, onClose, onDelete }) {
   const [selectedQuestionId, setSelectedQuestionId] = useState(null)
@@ -45,6 +46,18 @@ function DeleteQuestionModal({ questions, onClose, onDelete }) {
       <button onClick={onClose}>Close</button>
     </div>
   )
+}
+
+DeleteQuestionModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  questionId: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default DeleteQuestionModal

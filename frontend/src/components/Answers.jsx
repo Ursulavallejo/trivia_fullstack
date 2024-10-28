@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Answer from './Answer'
+import PropTypes from 'prop-types'
 
 function Answers({ choices, correctAnswer, onSubmit }) {
   const [showAnswer, setShowAnswer] = useState(false)
@@ -35,6 +36,12 @@ function Answers({ choices, correctAnswer, onSubmit }) {
       })}
     </div>
   )
+}
+
+Answers.propTypes = {
+  choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+  correctAnswer: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default Answers

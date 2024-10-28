@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Answers from './Answers'
+import PropTypes from 'prop-types'
 
 function QuestionComponent({
   question,
@@ -14,8 +15,7 @@ function QuestionComponent({
     const shuffled = [...choices].sort(() => Math.random() - 0.5)
     setShuffledChoices(shuffled)
   }, [correctAnswer, incorrectAnswers])
-  // const choices = [correctAnswer, ...incorrectAnswers]
-  // const shuffledChoices = [...choices].sort(() => Math.random() - 0.5)
+
   return (
     <div>
       <h3>{question}</h3>
@@ -26,6 +26,12 @@ function QuestionComponent({
       />
     </div>
   )
+}
+QuestionComponent.propTypes = {
+  question: PropTypes.string.isRequired,
+  correctAnswer: PropTypes.string.isRequired,
+  incorrectAnswers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default QuestionComponent

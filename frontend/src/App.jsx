@@ -34,7 +34,7 @@ function App() {
     setData((prevData) =>
       prevData.filter((question) => question.id !== deletedQuestionId)
     )
-    fetchData() // Vuelve a obtener datos si prefieres
+    fetchData()
   }
 
   const onSubmit = (correct) => {
