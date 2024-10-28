@@ -14,7 +14,7 @@ function QuestionComponent({
     const choices = [correctAnswer, ...incorrectAnswers]
     const shuffled = [...choices].sort(() => Math.random() - 0.5)
     setShuffledChoices(shuffled)
-  }, [correctAnswer, incorrectAnswers])
+  }, [])
 
   return (
     <div>
