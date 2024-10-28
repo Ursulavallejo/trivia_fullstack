@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Answer from './Answer'
 
-function Answers({ choices, onSubmit }) {
+function Answers({ choices, correctAnswer, onSubmit }) {
   const [showAnswer, setShowAnswer] = useState(false)
 
-  const onPress = (index) => {
+  useEffect(() => {
+    setShowAnswer(false)
+  }, [correctAnswer])
+
+  const onPress = (choice) => {
     setShowAnswer(true)
-    // onSubmit(correctAnswerIndex === index)
+
+    onSubmit(choice === correctAnswer)
   }
 
   return (
@@ -14,14 +19,15 @@ function Answers({ choices, onSubmit }) {
       {choices.map((choice, index) => {
         let color = ''
 
-        if (showAnswer && correctAnswerIndex === index) color = 'green'
-        else if (showAnswer) color = 'red'
+        if (showAnswer) {
+          color = choice === correctAnswer ? 'green' : 'red'
+        }
 
         return (
           <Answer
             key={index}
             text={choice}
-            onPress={() => onPress(index)}
+            onPress={() => onPress(choice)}
             color={color}
             disabled={showAnswer}
           />

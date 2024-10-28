@@ -13,6 +13,20 @@ function App() {
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
 
+  const [waitingToAdvance, setWaitingToAdvance] = useState(false)
+
+  const onSubmit = (correct) => {
+    if (correct) setCorrectAnswers(correctAnswers + 1)
+    else setIncorrectAnswers(incorrectAnswers + 1)
+
+    setWaitingToAdvance(true)
+  }
+
+  const advance = () => {
+    setWaitingToAdvance(false)
+    setCurrentQuestionIndex(currentQuestionIndex + 1)
+  }
+
   useEffect(() => {
     fetch('/api')
       .then((response) => response.json())
@@ -40,8 +54,11 @@ function App() {
             data[currentQuestionIndex]?.incorrectanswer2,
             data[currentQuestionIndex]?.incorrectanswer3,
           ]}
-          onSubmit={() => {}}
+          onSubmit={onSubmit}
         />
+        {waitingToAdvance && (
+          <button onClick={advance}>NEXT Question ...</button>
+        )}
         <h1>Trivia</h1>
         {data.map((item) => (
           <div key={item.id} style={{ marginBottom: '20px' }}>
