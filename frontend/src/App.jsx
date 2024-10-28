@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import StatBar from './components/StatBar'
 import QuestionComponent from './components/Question'
+import Reset from './components/Reset'
 
 // import styles from './App.module.scss'
 
@@ -37,6 +38,22 @@ function App() {
       .catch((error) => console.error('Error fetching data:', error))
   }, [])
 
+  const reset = () => {
+    setCurrentQuestionIndex(0)
+    setCorrectAnswers(0)
+    setIncorrectAnswers(0)
+    setWaitingToAdvance(false)
+  }
+
+  if (currentQuestionIndex >= data.length)
+    return (
+      <Reset
+        totalQuestions={data.length}
+        correctQuestions={correctAnswers}
+        onPress={reset}
+      />
+    )
+
   return (
     <>
       <div>
@@ -59,18 +76,6 @@ function App() {
         {waitingToAdvance && (
           <button onClick={advance}>NEXT Question ...</button>
         )}
-        <h1>Trivia</h1>
-        {data.map((item) => (
-          <div key={item.id} style={{ marginBottom: '20px' }}>
-            <h2>{item.question}</h2>
-            <ul>
-              <li>Correct Answer: {item.correctanswer}</li>
-              <li>Incorrect Answer 1: {item.incorrectanswer1}</li>
-              <li>Incorrect Answer 2: {item.incorrectanswer2}</li>
-              <li>Incorrect Answer 3: {item.incorrectanswer3}</li>
-            </ul>
-          </div>
-        ))}
       </div>
     </>
   )

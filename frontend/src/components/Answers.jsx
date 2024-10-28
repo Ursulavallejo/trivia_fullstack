@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Answer from './Answer'
 
-function Answers({ choices, correctAnswer, onSubmit }) {
+function Answers({ choices, correctAnswer, onSubmit, hasAnswered }) {
   const [showAnswer, setShowAnswer] = useState(false)
 
   useEffect(() => {
