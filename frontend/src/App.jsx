@@ -54,7 +54,6 @@ function App() {
       const response = await fetch('/api')
       const result = await response.json()
       setData(result)
-      console.log(result)
     } catch (error) {
       console.error('Error fetching data:', error)
     }

@@ -8,13 +8,25 @@ function QuestionComponent({
   incorrectAnswers,
   onSubmit,
 }) {
-  const [shuffledChoices, setShuffledChoices] = useState([])
+  //  Option without shuffle
+  const [shuffledChoices, setShuffledChoices] = useState([
+    correctAnswer,
+    ...incorrectAnswers,
+  ])
 
   useEffect(() => {
-    const choices = [correctAnswer, ...incorrectAnswers]
-    const shuffled = [...choices].sort(() => Math.random() - 0.5)
-    setShuffledChoices(shuffled)
-  }, [])
+    setShuffledChoices([correctAnswer, ...incorrectAnswers])
+  }, [correctAnswer, incorrectAnswers])
+
+  // TO CHECK AFTER !! didnt have enought time to solve it!!
+  // The shuffle is not working correct. After select a answer change order again, only should change order at the begining
+
+  // const [shuffledChoices, setShuffledChoices] = useState([])
+  // useEffect(() => {
+  //   const choices = [correctAnswer, ...incorrectAnswers]
+  //   const shuffled = [...choices].sort(() => Math.random() - 0.5)
+  //   setShuffledChoices(shuffled)
+  // }, [correctAnswer, incorrectAnswers])
 
   return (
     <div>
