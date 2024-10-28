@@ -1,6 +1,7 @@
 const dotenv = require('dotenv'),
   express = require('express'),
-  { Client } = require('pg')
+  { Client } = require('pg'),
+  path = require('path')
 
 const app = express()
 
@@ -22,13 +23,19 @@ client.connect()
 //   response.send(rows)
 // })
 
-app.get('', async (request, response) => {
+// app.get('/name', (_request, response) => {
+//   response.send({ hello: 'Jon!!' })
+// })
+
+app.get('/api', async (request, response) => {
   const { rows } = await client.query('SELECT * FROM questions')
 
   response.send(rows)
 })
 
 const port = process.env.PORT || 3000
+
+app.use(express.static(path.join(path.resolve(), 'dist')))
 
 app.listen(port, () => {
   console.log(`Redo på http://localhost:${port}`)
