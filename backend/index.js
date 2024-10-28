@@ -1,9 +1,15 @@
 const dotenv = require('dotenv'),
   express = require('express'),
   { Client } = require('pg'),
-  path = require('path')
+  path = require('path'),
+  cors = require('cors')
 
 const app = express()
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+  })
+)
 
 dotenv.config()
 
@@ -35,6 +41,24 @@ app.post('/api/questions', async (request, response) => {
     response.status(201).send(rows[0])
   } catch (error) {
     console.error('Error inserting question:', error)
+    response.status(500).send('Internal Server Error')
+  }
+})
+
+app.delete('/api/questions/:id', async (request, response) => {
+  const { id } = request.params
+
+  try {
+    const query = `DELETE FROM questions WHERE id = $1 RETURNING *`
+    const { rows } = await client.query(query, [id])
+
+    if (rows.length === 0) {
+      return response.status(404).json({ message: 'Question not found' })
+    }
+
+    response.status(200).json({ message: 'Question deleted successfully' })
+  } catch (error) {
+    console.error('Error deleting question:', error)
     response.status(500).send('Internal Server Error')
   }
 })

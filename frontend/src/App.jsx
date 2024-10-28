@@ -3,6 +3,7 @@ import StatBar from './components/StatBar'
 import QuestionComponent from './components/Question'
 import Reset from './components/Reset'
 import AddQuestionModal from './components/AddQuestionModal'
+import DeleteQuestionModal from './components/DeleteQuestionModal'
 
 // import styles from './App.module.scss'
 
@@ -17,12 +18,23 @@ function App() {
 
   const [waitingToAdvance, setWaitingToAdvance] = useState(false)
 
-  // To add new question >>
+  // To add new/ remove question >>
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const toggleAddQuestionModal = () => {
     setIsModalOpen(!isModalOpen)
+  }
+  const toggleDeleteQuestionModal = () => {
+    setIsDeleteModalOpen(!isDeleteModalOpen)
+  }
+
+  const handleDelete = async (deletedQuestionId) => {
+    setData((prevData) =>
+      prevData.filter((question) => question.id !== deletedQuestionId)
+    )
+    fetchData() // Vuelve a obtener datos si prefieres
   }
 
   const onSubmit = (correct) => {
@@ -72,10 +84,20 @@ function App() {
     <>
       <div>
         <button onClick={toggleAddQuestionModal}>Add New Question</button>
+        <button onClick={toggleDeleteQuestionModal}>Delete Question</button>
+
         {isModalOpen && (
           <AddQuestionModal
             onClose={toggleAddQuestionModal}
-            onAdd={fetchData} // Asegúrate de que fetchData esté definido
+            onAdd={fetchData}
+          />
+        )}
+
+        {isDeleteModalOpen && (
+          <DeleteQuestionModal
+            questions={data}
+            onClose={toggleDeleteQuestionModal}
+            onDelete={handleDelete}
           />
         )}
         <StatBar
