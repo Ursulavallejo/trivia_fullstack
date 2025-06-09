@@ -1,42 +1,117 @@
-# Labb 1 :Platform-as-a-Service (PaaS)
+## Platform-as-a-Service (PaaS)
 
-### Ursula Vallejo Janne/ Oktober 2024
+## October 2024
 
-### [Render WebAPP Trivia Ursula](https://trivia-fullstack.onrender.com/)
+📘 Project Summary: Trivia Web Application (PaaS Deployment)
+This project is a fullstack web application for a Trivia game, developed as part of Labb 1 - Platform-as-a-Service (PaaS) in October 2024. The application allows users to register, log in, and play trivia games, while data is stored and managed via a RESTful API.
 
-### [Render WebAPP API Trivia Ursula](https://trivia-fullstack.onrender.com/api)
+The backend and frontend were deployed using Render, and the project also includes monitoring tools and CDN integration via Cloudflare.
 
-## Content Delivery Networks:CDN (Content Delivery Network)-
+🌐 Deployment links (demo):
+These are the links that were used during the project presentation:
 
-### Vad är ett CDN?
+Frontend WebApp: https://trivia-fullstack.onrender.com/
+
+API Endpoint: https://trivia-fullstack.onrender.com/api
+
+⚠️ Note: These links were active during the demo period, but as they were hosted on a free Render account, they are no longer online.
+
+---
+
+### 🛠️ Technologies Used
+
+-**Frontend**: HTML, CSS, JavaScript (Vanilla)
+
+-**Backend**: Node.js, Express.js
+
+-**Database**: MongoDB
+
+-**Deployment**: Render (PaaS)
+
+-**CDN**: Cloudflare
+
+-**Monitoring**: Pingdom
 
 Ett innehållsleveransnätverk (CDN, på engelska) är ett nätverk av geografiskt distribuerade servrar som hjälper till att snabbare överföra information på internet till användare. Istället för att alla måste gå till en enda server som kan vara långt borta, lagrar CDN
 kopior av innehållet (som webbsidor, bilder och videor) på flera platser. Så när någon besöker en webbplats kan de få informationen från den närmaste servern, vilket minskar väntetiden.
 
-### Fördelar med att använda ett CDN:
+---
 
-1. Snabbare webbplatsladdning: Eftersom informationen levereras från en närliggande server laddas sidorna snabbare. Detta innebär att besökare tillbringar mer tid på webbplatsen och är mindre benägna att lämna den på grund av långsamhet.
+### General view:
 
-2. Minskade kostnader för bandbredd: Genom att minska mängden data som huvudservern behöver skicka hjälper CDNs webbplatsägare att spara pengar på hostingkostnader.
+<img
+  src="documentation/landingPageView_NoUser.png"
+  alt="landing-page-anonym-image"
+  width="400"
+/>
 
-3. Ökad tillgänglighet: CDNs kan hantera mycket trafik och fortsätta fungera även om en av servrarna skulle gå ner. Det innebär att webbplatsen är mindre benägen att krascha.
+---
 
-4. Bättre säkerhet: CDNs kan skydda webbplatser mot vanliga attacker, som distribuerade överbelastningsattacker (DDoS), som försöker översvämma webbplatsen med trafik för att göra den otillgänglig.
+### 🔧 Installation and Usage
 
-### Nackdelar med ett CDN:
+#### 1️⃣ Clone the repository
 
-1. Ytterligare kostnad: Även om det kan spara pengar på lång sikt kan användningen av ett CDN kräva en initial investering, vilket kan vara ett hinder för mindre företag.
+```bash
+git clone https://github.com/tu-usuario/name_repo.git
+cd name_repo
+```
 
-2. Konfiguration och hantering: Att implementera ett CDN kan kräva viss teknisk kunskap för att konfigurera det korrekt, vilket kan vara en utmaning för vissa.
+#### 2️⃣ Install dependencies
 
-Sammanfattningsvis är ett CDN ett värdefullt verktyg för att göra internetanvändning snabbare och säkrare. Även om det har några nackdelar överväger oftast fördelarna nackdelarna, särskilt för webbplatser som får mycket trafik.
+Go to the backend folder:
 
-Render används Cloudflare som CDN.
+```bash
+cd backend
+npm install
+```
 
-### [Cloudflare CDN](https://www.cloudflare.com/)
+Go to the frontend folder :
 
-## Monitorering:
+```bash
+cd frontend
+npm install
+```
 
-Verktyget jag använde var Pingdom, som gör det möjligt att övervaka trafiken till en specifik URL. Genom att analysera besökarnas beteende utifrån webbläsare, enhet och geografisk plats kan man förstå hur användare upplever webbplatsen. Pingdom skickar notifieringar till den som övervakar tjänsten vid misstänkt aktivitet, som flera samtidiga förfrågningar, vilket kan indikera försök till överbelastning eller hacking. Dessutom hjälper det till att samla statistik om användning, vilket gör det möjligt att identifiera de mest frekventa besökstiderna och optimera webbplatsens prestanda.
+#### 3️⃣ Run the application locally
 
-### [Pingdom](https://www.pingdom.com/)
+##### Start the backend server
+
+```bash
+cd backend
+
+npm run build-frontend
+```
+
+This will start the backend server on `http://localhost:3000` (or your configured port).
+
+##### Start the frontend (if needed)
+
+If your frontend is in a separate folder and uses a development server (like Vite or similar), run:
+
+```bash
+cd frontend
+npm run dev
+```
+
+This will start the fronted server on `http://localhost:5173/`
+
+If your frontend is static HTML/CSS/JS and served by the backend, you can skip this step — just access your backend server in the browser.
+
+#### 4️⃣ Environment variables
+
+Make sure to configure your `.env` file in the backend with the following variables:
+
+```env
+PORT=3000
+MONGODB_URI=your-mongodb-connection-string
+JWT_SECRET=your-secret-key
+```
+
+#### 5️⃣ Access the app
+
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- API: [http://localhost:3000/api](http://localhost:3000/api)
+
+---
+
+### 📄 [Detailed Information of the Project](Detail_Info.md)
