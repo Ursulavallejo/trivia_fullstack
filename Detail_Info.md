@@ -5,9 +5,9 @@
 Deployment links (example):
 The project was deployed and presented using these two links as examples:
 
-### [Render WebAPP Trivia Ursula](https://trivia-fullstack.onrender.com/)
+### Render WebAPP Trivia Ursula: https://trivia-fullstack.onrender.com/
 
-### [Render WebAPP API Trivia Ursula](https://trivia-fullstack.onrender.com/api)
+### Render WebAPP API Trivia Ursula: https://trivia-fullstack.onrender.com/api
 
 These links were fully functional during the project presentation. However, since the deployment was done using a free Render account, the services are no longer active.
 
