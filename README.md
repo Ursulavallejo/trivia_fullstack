@@ -1,5 +1,7 @@
 ## Platform-as-a-Service (PaaS)
 
+🎮 Fullstack Trivia Web Application — Node.js, Express, React, PostgreSQL, Render
+
 ## October 2024
 
 📘 Project Summary: Trivia Web Application (PaaS Deployment)
